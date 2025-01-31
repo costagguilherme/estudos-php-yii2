@@ -35,6 +35,30 @@ class TrabalhoController extends Controller
     public function actionUpdate($id) {
         return ['id' => $id];
     }
+
+    public function actionCep($cep) 
+    {
+        if (!preg_match('/^\d{5}\d{3}$/', $cep)) {
+            return $this->asJson(['error' => 'CEP inválido']);
+        }
+
+        // URL da API viaCEP
+        $url = "https://viacep.com.br/ws/{$cep}/json/";
+
+        $response = file_get_contents($url);
+
+        if ($response === false) {
+            return $this->asJson(['error' => 'Erro ao buscar o CEP']);
+        }
+
+        $data = json_decode($response, true);
+
+        if (isset($data['erro']) && $data['erro'] === true) {
+            return $this->asJson(['error' => 'CEP não encontrado']);
+        }
+
+        return $this->asJson($data);
+    }
     
   
 }

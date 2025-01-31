@@ -56,7 +56,8 @@ $config = [
             'rules' => [
                 'GET /trabalho' => 'trabalho/index',
                 'POST /trabalho' => 'trabalho/create',
-                'PUT /trabalho/<id:\d+>' => 'trabalho/update'
+                'PUT /trabalho/<id:\d+>' => 'trabalho/update',
+                'GET /trabalho/<cep:\d+>/cep' => 'trabalho/cep' 
             ],
         ],
         
